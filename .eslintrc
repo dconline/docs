@@ -1,0 +1,17 @@
+{
+  "env": {
+    "browser": true,
+    "es6": true
+  },
+  "extends": [
+    "standard",
+    "standard-react"
+  ],
+  "plugins": [
+    "react", "import"
+  ],
+  "rules": {
+    "react/prop-types": "off"
+  },
+  "parser": "babel-eslint"
+}
