@@ -95,9 +95,9 @@ type: "guide"
 - 项目代码 **必须** 存放在`gitlab`，项目命名除了专有名字，其他全使用小写，单词使用`-`符号间隔。比如：`dcshop-server` `dcshop-iOS`
 - 使用`git-flow`迭代项目，会同时维护两个长分支`master`和`develop`
 
-  - `feature/` 功能分支基于`develop`分支建立，分支作为新增的功能
-  - `hotfix/` 补丁分支基于`master`分支建立，需要修复生产环境`master`出现的问题的情况下建立
-  - `release/` 预发布版本分支基于`master`分支建立，建立后经过测试通过后会合并到`develop`和`master`
+  - `feature-` 功能分支基于`develop`分支建立，分支作为新增的功能
+  - `hotfix-` 补丁分支基于`master`分支建立，需要修复生产环境`master`出现的问题的情况下建立
+  - `release-` 预发布版本分支基于`master`分支建立，建立后经过测试通过后会合并到`develop`和`master`
 
 ## <a name="commit"></a> Commit信息指南
 
