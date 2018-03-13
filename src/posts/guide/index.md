@@ -14,6 +14,7 @@ type: "guide"
 * [协作](#work-together)
 
 ## <a name="coc"></a> 说明
+-----
 
 所有参与开发的人员都 **必须** 遵循统一的约定规则
 
@@ -38,7 +39,7 @@ type: "guide"
 > 详细可以看 [RFC 2119](http://www.ietf.org/rfc/rfc2119.txt)
 
 ## <a name="submit"></a> 提交指南
-
+-----
 ### <a name="submit-issue"></a> 如何提交Issue
 
 在你提交一个issue之前，先看issues列表中有没有存在相同的issue，有的话直接在上面留言。<br>
@@ -83,7 +84,7 @@ type: "guide"
 提交的PR合并后，删除分支别留在gitlab上，同时记得更新本地的项目
 
 ## <a name="rules"></a> 编程规则
-
+-----
 - 所有开发类文档都 **应该** 使用 `Markdown` 文件格式
 - **必须** 安装`editorconfig`插件使用统一的编辑器配置
 - **必须** 遵循统一的代码风格：
@@ -100,7 +101,7 @@ type: "guide"
   - `release-` 预发布版本分支基于`master`分支建立，建立后经过测试通过后会合并到`develop`和`master`
 
 ## <a name="commit"></a> Commit信息指南
-
+-----
 `commit`提交信息 **必须** 遵守格式规范，每个`commit`都只处理单纯的一个问题
 
 ### Commit信息格式
@@ -133,6 +134,8 @@ footer?
 ```
 feat: 添加google登录功能
 ```
+
+或者：
 
 ```
 fix(login): 修复cookies引起用户不能登录 
@@ -191,11 +194,11 @@ fix(login): 修复cookies引起用户不能登录
 - 通过浏览提交的历史信息结构，让其他人更容易加入到项目
 
 ## <a name="version"></a> 语义化版本
-
+-----
 [语义化版本 SemVer](https://semver.org/lang/zh-CN/)
 
 ## <a name="work-together"></a> 协作
-
+-----
 主动分享你的工作信息，避免不必要的交流浪费时间：
 
 - 如果在正常上班时间`9:40`无法到公司，提前通知到上级，就算前一天正常加班到很晚，晚到也需要提前说（聊天软件消息就可以）
