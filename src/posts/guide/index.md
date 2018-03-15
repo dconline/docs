@@ -86,11 +86,11 @@ type: "guide"
 ## <a name="rules"></a> 编程规则
 -----
 - 所有开发类文档都 **应该** 使用 `Markdown` 文件格式
-- **必须** 安装`editorconfig`插件使用统一的编辑器配置
+- **必须** 安装`editorconfig`插件使用统一的编辑器配置 [Link](http://editorconfig.org/)
 - **必须** 遵循统一的代码风格：
 
-  - PHP使用`PSR2`
-  - Javascript使用`standard`
+  - PHP使用`PSR2` [Link](https://www.php-fig.org/psr/psr-2/)
+  - Javascript使用`standard` [Link](https://standardjs.com/)
 
 - 代码中 **可以** 使用一些关键字 `TODO` `FIXME` `NOTE` 等等
 - 项目代码 **必须** 存放在`gitlab`，项目命名除了专有名字，其他全使用小写，单词使用`-`符号间隔。比如：`dcshop-server` `dcshop-iOS`
