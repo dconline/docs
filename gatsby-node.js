@@ -39,7 +39,7 @@ exports.createPages = ({ boundActionCreators, graphql }) => {
   return graphql(`
     {
       allMarkdownRemark(
-        sort: { order: DESC, fields: [frontmatter___date]}
+        sort: { order: DESC, fields: [frontmatter___create_date]}
       ) {
         edges {
           node {
