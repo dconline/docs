@@ -94,11 +94,11 @@ type: "guide"
 
 - 代码中 **可以** 使用一些关键字 `TODO` `FIXME` `NOTE` 等等
 - 项目代码 **必须** 存放在`gitlab`，项目命名除了专有名字，其他全使用小写，单词使用`-`符号间隔。比如：`dcshop-server` `dcshop-iOS`
-- 使用`git-flow`迭代项目，会同时维护两个长分支`master`和`develop`
+- 使用修改的`git-flow`工作流迭代项目，会同时维护两个长分支`master`和`develop`
 
-  - `feature-` 功能分支基于`develop`分支建立，分支作为新增的功能
   - `hotfix-` 补丁分支基于`master`分支建立，需要修复生产环境`master`出现的问题的情况下建立
-  - `release-` 预发布版本分支基于`master`分支建立，建立后经过测试通过后会合并到`develop`和`master`
+  - `release-` 预发布版本分支基于`master`分支建立，建立预发布版本后，属于这个版本的issues的PR都已这个分支为目标分支
+  - 其它分支、功能开发或者bug修复，都已该分支实际的作用命名。比如：`fix-array-parse-error` `add-some-feature`
 
 ## <a name="commit"></a> Commit信息指南
 -----
