@@ -11,7 +11,9 @@ class GuideTemplate extends React.Component {
         <Hero title='DCONLINE之指南' subtitle='这个真的是指南' />
         <section className='section'>
           <div className='container'>
-            <h1 className='title'>{post.frontmatter.title}</h1>
+            <h1 className='title'>{post.frontmatter.title} </h1>
+            <hr />
+            <span className='is-size-7'>更新时间：{post.frontmatter.update_date}</span>
             <hr />
             <div className='content' dangerouslySetInnerHTML={{ __html: post.html }} />
           </div>
@@ -42,6 +44,7 @@ export const pageQuery = graphql`
       html
       frontmatter {
         title
+        update_date
       }
       fields {
         slug
