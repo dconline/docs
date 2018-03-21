@@ -60,7 +60,7 @@ type: "guide"
 啊，不能登录了。。。
 ```
 
-### <a name="submit-pr"></a> 提交Pull Request (PR) 
+### <a name="submit-pr"></a> 提交Pull Request (PR)
 
 在gitlab上发起PR后都 **不该** 自行关闭，需要更新也在当前的PR中更新。<br>
 在你提交一个PR之前，请遵循下列步骤：
@@ -69,7 +69,7 @@ type: "guide"
 2. 使用最新的develop分支创建新的分支，如果是预发布的情况会有个`release-*`分支。git-flow工作流: `feature-`, `hotfix-`, `release-`
 3. 遵循下面的[编程规则](#rules)
 4. 完成后推送到gitlab上
-5. 在gitlab上发起合并请求到对应的分支，feature -> (develop/release-*)，hotfix -> master
+5. 在gitlab上发起合并请求到对应的分支，feature -> (develop/release-\*)，hotfix -> master
 
 提交后如果需要修改：
 
@@ -139,7 +139,7 @@ feat: 添加google登录功能
 或者：
 
 ```
-fix(login): 修复cookies引起用户不能登录 
+fix(login): 修复cookies引起用户不能登录
 
 巴拉巴拉，快速登录时cookies会导致用户无法登录。。。
 ```
@@ -172,7 +172,7 @@ fix(login): 修复cookies引起用户不能登录
 
 ### Subject主题
 
-主题尽量简短的描述清楚提交的内容，不要使用标点符号，可以使用`\``符号
+主题尽量简短的描述清楚提交的内容，不要使用标点符号，可以使用 `\`` 符号
 
 ### Body内容
 
@@ -219,9 +219,16 @@ fix(login): 修复cookies引起用户不能登录
 
 ### Gitlab
 
-咱们有自建的gitlab服务，开发人员的帐号在入职后由主管创建。<br>
-公司的项目都 **必须** 提交在gitlab，同时运维通过CI来部署。<br>
-目前项目的开发任务都在gitlab中跟踪，以后会根据情况迁移到redmine统一处理。
+咱们有自建的gitlab服务，开发人员的帐号在入职后由主管创建 <br>
+公司的项目都 **必须** 提交在gitlab，同时运维通过CI来部署 <br>
+**项目的迭代围绕下个发布版本优先处理任务，会用gitlab的milestone标记在需要版本内处理的issue** <br>
+目前项目的开发任务都在gitlab中跟踪，以后会根据情况迁移到redmine统一处理
+
+- `help wanted` 在版本内有这个label的优先处理，如果准备处理就去掉`help wanted`然后 **留言**
+- `enhancement` 一些增强功能，属于`feat`或者`perf`类型
+- `bug` 出现的错误，属于`fix`类型
+- `documentation` 文档，属于`docs`类型
+- `suggestion` 意见或建议
 
 ### Telegram
 
