@@ -152,6 +152,7 @@ fix(login): 修复cookies引起用户不能登录
 
 页头中的类型 **必须** 是下列其中一个：
 
+  - chore: 杂事，不会显示到log
   - fix: 修复bug
   - feat: 新的功能
   - docs: 文档更新
