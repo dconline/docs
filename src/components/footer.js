@@ -5,9 +5,9 @@ export default () => (
     <div className='container'>
       <div className='has-text-centered'>
         <small>
-          Source code licensed MIT.
+          Source code licensed <a href='https://opensource.org/licenses/mit-license.php'>MIT</a>.
           <br />
-          Website content licensed CC BY-NC-SA 4.0.
+          Website content licensed <a href='https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh'>CC BY-NC-SA 4.0</a>.
         </small>
       </div>
     </div>
