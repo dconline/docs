@@ -9,6 +9,9 @@ module.exports = {
     }, {
       slug: '/guide',
       label: '指南'
+    }, {
+      slug: '/posts',
+      label: '文章'
     }
   ],
   social: [

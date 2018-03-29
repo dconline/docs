@@ -35,6 +35,7 @@ exports.createPages = ({ boundActionCreators, graphql }) => {
   const { createPage } = boundActionCreators
   const guideTemplate = path.resolve(`src/templates/guide.js`)
   const jobsTemplate = path.resolve(`src/templates/jobs.js`)
+  const postTemplate = path.resolve(`src/templates/post.js`)
 
   return graphql(`
     {
@@ -73,6 +74,14 @@ exports.createPages = ({ boundActionCreators, graphql }) => {
         createPage({
           path: node.fields.slug,
           component: jobsTemplate,
+          context: {
+            slug: node.fields.slug
+          }
+        })
+      } else if (type === 'post') {
+        createPage({
+          path: node.fields.slug,
+          component: postTemplate,
           context: {
             slug: node.fields.slug
           }
