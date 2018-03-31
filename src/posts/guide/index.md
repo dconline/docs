@@ -65,8 +65,8 @@ type: "guide"
 在gitlab上发起PR后都 **不该** 自行关闭，需要更新也在当前的PR中更新。<br>
 在你提交一个PR之前，请遵循下列步骤：
 
-1. 在对应的issue中回复说明你正在处理这个issue。
-2. 使用最新的develop分支创建新的分支，如果是预发布的情况会有个`release-*`分支。git-flow工作流: `feature-`, `hotfix-`, `release-`
+1. 在对应的issue中回复说明你正在处理这个issue
+2. 使用最新的develop分支创建新的分支，如果是预发布的情况会有个`release-*`分支
 3. 遵循下面的[编程规则](#rules)
 4. 完成后推送到gitlab上
 5. 在gitlab上发起合并请求到对应的分支，feature -> (develop/release-\*)，hotfix -> master
