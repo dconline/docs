@@ -1,6 +1,6 @@
 ---
 create_date: "2018-02-25 14:23:29"
-update_date: "2018-03-21 11:43:11"
+update_date: "2018-04-17 18:44:36"
 title: "开发"
 type: "guide"
 ---
@@ -223,6 +223,7 @@ fix(login): 修复cookies引起用户不能登录
 咱们有自建的gitlab服务，开发人员的帐号在入职后由主管创建 <br>
 公司的项目都 **必须** 提交在gitlab，同时运维通过CI来部署 <br>
 **项目的迭代围绕下个发布版本优先处理任务，会用gitlab的milestone标记在需要版本内处理的issue** <br>
+**开发人员能动手的功能和bug都必须在issues上有记录，并且功能需要确认需求** <br>
 目前项目的开发任务都在gitlab中跟踪，以后会根据情况迁移到redmine统一处理
 
 - `help wanted` 在版本内有这个label的优先处理，如果准备处理就去掉`help wanted`然后 **留言**
