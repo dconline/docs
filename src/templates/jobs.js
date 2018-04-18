@@ -9,7 +9,7 @@ class JobsTemplate extends React.Component {
     const { allMarkdownRemark, markdownRemark: post } = data
     return (
       <div>
-        <Hero title='Join us' subtitle='you are only one' />
+        <Hero title='Join us' subtitle='' />
         <TableOfContents
           posts={allMarkdownRemark.edges}
           currentSlug={post.fields.slug}

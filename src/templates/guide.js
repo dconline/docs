@@ -1,20 +1,18 @@
 import React from 'react'
 import graphql from 'graphql'
+import Helmet from 'react-helmet'
 import Hero from '../components/hero'
 
 class GuideTemplate extends React.Component {
   render () {
     const { data } = this.props
-    const { postBySlug: post } = data
+    const { postBySlug: post, site: { siteMetadata } } = data
     return (
       <div>
-        <Hero title='DCONLINE之指南' subtitle='这个真的是指南' />
+        <Helmet title={`${siteMetadata.title} - ${post.frontmatter.title}`} />
+        <Hero title={post.frontmatter.title} subtitle='' />
         <section className='section'>
           <div className='container'>
-            <h1 className='title'>{post.frontmatter.title} </h1>
-            <hr />
-            <span className='is-size-7'>更新时间：{post.frontmatter.update_date}</span>
-            <hr />
             <div className='content' dangerouslySetInnerHTML={{ __html: post.html }} />
           </div>
         </section>
@@ -27,6 +25,11 @@ export default GuideTemplate
 
 export const pageQuery = graphql`
   query GuideBySlug($slug: String!) {
+    site {
+      siteMetadata {
+        title
+      }
+    }
     allPostTitles: allMarkdownRemark(filter: { frontmatter: {type: { eq: "guide" }}}) {
       edges {
         node {
@@ -45,6 +48,7 @@ export const pageQuery = graphql`
       frontmatter {
         title
         update_date
+        create_date
       }
       fields {
         slug

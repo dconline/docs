@@ -1,6 +1,6 @@
 ---
 date: 2018-03-29 18:21:32
-title: 在销售订单创建时使用默认仓库位置
+title: odoo在销售订单创建时使用默认仓库位置
 type: post
 author: Mino Zang<minoscc+dev@gmail.com>
 tags:

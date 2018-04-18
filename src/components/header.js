@@ -20,7 +20,7 @@ class Header extends React.Component {
     menu.forEach((m, i) => {
       menuNodes.push(
         <a className='navbar-item' href={m.slug} key={i}>
-          {m.label}
+          <span>{m.label}</span>
         </a>
       )
     })
@@ -39,7 +39,7 @@ class Header extends React.Component {
     })
 
     return (
-      <nav className='navbar'>
+      <nav className='navbar is-spaced'>
         <div className='container'>
           <div className='navbar-brand'>
             <a className='navbar-item has-text-weight-bold' href='/'>
