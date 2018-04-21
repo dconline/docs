@@ -12,9 +12,9 @@ class PostTemplate extends React.Component {
       <div>
         <Hero title={post.frontmatter.title} subtitle='' />
         <section className='section'>
-          <div className='container'>
+          <div className='container has-text-centered'>
             <Tags data={post.frontmatter.tags} />
-            <div className='content' dangerouslySetInnerHTML={{ __html: post.html }} />
+            <div className='content has-text-left is-inline-block' dangerouslySetInnerHTML={{ __html: post.html }} />
           </div>
         </section>
       </div>

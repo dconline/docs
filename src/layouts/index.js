@@ -6,6 +6,7 @@ import Header from '../components/header'
 import Footer from '../components/footer'
 import '@fortawesome/fontawesome'
 import 'bulma'
+import './index.scss'
 
 const TemplateWrapper = ({ children, data }) => {
   const { social, menu, title, description, keywords } = data.site.siteMetadata

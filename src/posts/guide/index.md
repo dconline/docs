@@ -1,7 +1,7 @@
 ---
 create_date: "2018-02-25 14:23:29"
-update_date: "2018-04-17 18:44:36"
-title: "开发指南"
+update_date: "2018-04-21 18:25:34"
+title: "开发约定规则"
 type: "guide"
 ---
 
@@ -91,16 +91,20 @@ type: "guide"
 - **必须** 安装`editorconfig`插件使用统一的编辑器配置 [Link](http://editorconfig.org/)
 - **必须** 遵循统一的代码风格：
 
-  - PHP使用`PSR2` [Link](https://www.php-fig.org/psr/psr-2/)
+  - PHP使用`PSR2`或者`Symfony` [Link](https://www.php-fig.org/psr/psr-2/)
   - Javascript使用`standard` [Link](https://standardjs.com/)
 
 - 代码中 **可以** 使用一些关键字 `TODO` `FIXME` `NOTE` 等等
 - 项目代码 **必须** 存放在`gitlab`，项目命名除了专有名字，其他全使用小写，单词使用`-`符号间隔。比如：`dcshop-server` `dcshop-iOS`
-- 使用修改的`git-flow`工作流迭代项目，会同时维护两个长分支`master`和`develop`
+- 使用自定义的`git-flow`工作流迭代项目，会同时维护两个长分支`master`和`develop`
 
   - `hotfix-` 补丁分支基于`master`分支建立，需要修复生产环境`master`出现的问题的情况下建立
   - `release-` 预发布版本分支基于`master`分支建立，建立预发布版本后，属于这个版本的issues的PR都已这个分支为目标分支
   - 其它分支、功能开发或者bug修复，都已该分支实际的作用命名。比如：`fix-array-parse-error` `add-some-feature`
+
+- 使用`standard-version`生成版本日志，并遵循语义化版本递增规则
+- **项目的迭代围绕下个发布版本优先处理任务，会用gitlab的milestone标记在需要版本内处理的issue**
+- 开发人员能动手的功能和bug都必须在issues上有记录，一般通过`help wanted`标签领取
 
 ## <a name="commit"></a> Commit信息指南
 -----
@@ -148,6 +152,7 @@ fix(login): 修复cookies引起用户不能登录
 ### Revert回退
 
 如果需要回退之前的commit，页头 **应该** 已`revert:`开头，后面跟已经回退的那个commit的页头信息，在内容中带上回退的commit的hash值。
+*gitkraken的revert功能会自动commit，没有revert开头，带有hash值*
 
 ### Type类型
 
@@ -206,8 +211,8 @@ fix(login): 修复cookies引起用户不能登录
 
 - 如果在正常上班时间`9:40`无法到公司，提前通知到上级，就算前一天正常加班到很晚，晚到也需要提前说（聊天软件消息就可以）
 - 请假 **必须** 提前通知到上级，由上级通过后把任务指给行政。没有提前请假的属于无故旷工，会根据情况追究责任，如果有特殊情况应该在第一时间通知到上级，事后补请假任务
-- 任务的指派不会由聊天软件通知（目前也没有客户端通知），所以工作时间打开 **邮件客户端** 查看，无法及时获取任务信息导致的工作加班不算在正常加班中
-- 工作的交流 **应该** 使用聊天软件沟通，避免大小事都直接跑到别人座位上问（这样可能会影响别人的思路）
+- 任务的指派不会由聊天软件通知（目前也没有客户端通知），所以工作时间打开 `邮件客户端` 查看，无法及时获取任务信息导致的工作加班不算在正常加班中
+- 工作的交流 **应该** 使用聊天软件沟通，**避免大小事都直接跑到别人座位上问**（这样可能会影响别人的思路）
 - 如果有需要及时讨论的工作，到会议室讨论
 
 ### Work Together (Redmine)
@@ -223,8 +228,6 @@ fix(login): 修复cookies引起用户不能登录
 
 咱们有自建的gitlab服务，开发人员的帐号在入职后由主管创建 <br>
 公司的项目都 **必须** 提交在gitlab，同时运维通过CI来部署 <br>
-**项目的迭代围绕下个发布版本优先处理任务，会用gitlab的milestone标记在需要版本内处理的issue** <br>
-**开发人员能动手的功能和bug都必须在issues上有记录，并且功能需要确认需求** <br>
 目前项目的开发任务都在gitlab中跟踪，以后会根据情况迁移到redmine统一处理
 
 - `help wanted` 在版本内有这个label的优先处理，如果准备处理就去掉`help wanted`然后 **留言**
@@ -232,6 +235,7 @@ fix(login): 修复cookies引起用户不能登录
 - `bug` 出现的错误，属于`fix`类型
 - `documentation` 文档，属于`docs`类型
 - `suggestion` 意见或建议
+- `discussion` 待定
 
 ### Telegram
 

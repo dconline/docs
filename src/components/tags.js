@@ -10,7 +10,7 @@ const Tags = ({data = []}) => {
     )
   })
   return (
-    <div className='tags'>
+    <div className='tags is-centered'>
       {tagNodes}
     </div>
   )
