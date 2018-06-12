@@ -14,10 +14,10 @@ tags:
 * [初始化 Kubernetes] (#initial-kubernetes)
 * [增加 Kubernetes 节点] (#add-kubernetes-node)
 * [删除 Kubernetes 节点] (#delete-kubernetes-node)
-* [安装 Kubernetes Dashboard] (#instsall-kubernetes-dashboard)
+* [安装 Kubernetes Dashboard] (#install-kubernetes-dashboard)
 * [创建 Dashboard RBAC] (#create-dashboard-rbac)
   
-## <a name="install-kubeadm-and-docker"> 安装 Kubeadm 和 Docker
+## <a name="install-kubeadm-and-docker"></a> 安装 Kubeadm 和 Docker
 -----
 
 在主节点执行以下命令
@@ -33,7 +33,7 @@ apt-get install -y kubelet kubeadm kubectl docker-engine
 ```
 Google 的 Kubernetes 仓库包含一个版本要求最低的 `docker-engine`，不建议使用最新版本的 Docker，避免与 Kubernetes 产生不兼容。
 
-## <a name="set-cgroup-driver"> 设置 Cgroup 驱动
+## <a name="set-cgroup-driver"></a> 设置 Cgroup 驱动
 -----
 
 Kubeadm 完成安装后，需要确保 `kubelet` 与 Docker 使用相同的 `cgroup driver`。默认 `kubelet` 使用 `systemd`，`docker 使用 `cgroupfs`，因此需要把 `kubelet` 也改成 `cgroupfs`。
@@ -51,7 +51,7 @@ Kubeadm 完成安装后，需要确保 `kubelet` 与 Docker 使用相同的 `cgr
 systemctl daemon-reload
 ```
 
-## <a name="initial-kubernetes"> 初始化 Kubernetes
+## <a name="initial-kubernetes"></a> 初始化 Kubernetes
 -----
 
 执行以下命令，初始化 `Kubernetes`
@@ -72,7 +72,7 @@ sudo cp -i /etc/kubernetes/admin.conf $HOME/.kube/config
 sudo chown $(id -u):$(id -g) $HOME/.kube/config
 ```
 
-## <a name="deploy-network-plugin"> 部署网络插件
+## <a name="deploy-network-plugin"></a> 部署网络插件
 -----
 
 初始化完成以后，`Kubernetes` 默认没有部署网络插件，这会导致创建 `Pod` 和 `Service` 直接的网络无法互通，以及各节点之间上的 `Pod` 和 `Service` 也无法网络互通。因此需要搭建一个 `CNI` 网络。`CNI` 网络插件有 `Flannel`，`Calico` 等。这里选用 `Flannel`。
@@ -84,7 +84,7 @@ kubectl apply -f https://raw.githubusercontent.com/coreos/flannel/master/Documen
 
 执行完成后，`Kubernetes` 各个节点的状态从 `NotReady` 变成 `Ready`。此时创建各个 `Pod` 和 `Service` 也能网络互联。
 
-## <a name="add-kubernetes-node"> 增加 Kubernetes 节点
+## <a name="add-kubernetes-node"></a> 增加 Kubernetes 节点
 -----
 
 增加节点。如前文所述，在其他节点安装好 `kubeadm` 和 `docker-engine`，调整好 `cgroup driver`，执行 `kubeadm join` 命令
@@ -97,7 +97,7 @@ kubeadm join --token <token> <master-ip>:<master-port> --discovery-token-ca-cert
 
 ![Kubernetes 节点状态](/images/kubernetes-node-status.png)
 
-## <a name="delete-kubernetes-node"> 删除 Kubernetes 节点
+## <a name="delete-kubernetes-node"></a> 删除 Kubernetes 节点
 -----
 
 删除 Kubernetes 需要在 Master 节点和 Slave 节点进行两步操作。
@@ -118,7 +118,7 @@ ifconfig flannel.1 down
 ip link delete flannel.1
 rm -rf /var/lib/cni/
 ```
-## <a name="install-kubernetes-dashboard"> 安装 Kubernetes Dashboard
+## <a name="install-kubernetes-dashboard"></a> 安装 Kubernetes Dashboard
 -----
 
 执行以下命令安装 Kubernetes Dashboard。
@@ -129,7 +129,7 @@ kubectl create -f https://raw.githubusercontent.com/kubernetes/dashboard/v1.8.1/
 
 稍等片刻，等待后台下载和自动设置。
 
-## <a name="create-dashboard-rbac"> 创建 Dashboard RBAC
+## <a name="create-dashboard-rbac"></a> 创建 Dashboard RBAC
 -----
 
 `kubernetes-dashboard.yaml` 文件中的 `ServiceAccount` `kubernetes-dashboard` 只有相对较小的权限，因此我们创建一个 `kubernetes-dashboard-admin` 的 `ServiceAccount` 并授予集群 `admin` 的权限，创建 `kubernetes-dashboard-admin.rbac.yaml`：
