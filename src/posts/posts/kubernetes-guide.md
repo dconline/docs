@@ -14,8 +14,11 @@ tags:
 * [初始化 Kubernetes] (#initial-kubernetes)
 * [增加 Kubernetes 节点] (#add-kubernetes-node)
 * [删除 Kubernetes 节点] (#delete-kubernetes-node)
+* [调整 NodePort 范围] (#change-nodeport-range)
 * [安装 Kubernetes Dashboard] (#install-kubernetes-dashboard)
 * [创建 Dashboard RBAC] (#create-dashboard-rbac)
+* [安装 Kubernetes Ingress] (#install-kubernetes-ingress)
+* [Kubernetes Ingress Demo] (#kubernetes-ingress-demo)
   
 ## <a name="install-kubeadm-and-docker"></a> 安装 Kubeadm 和 Docker
 -----
@@ -87,7 +90,7 @@ kubectl apply -f https://raw.githubusercontent.com/coreos/flannel/master/Documen
 ## <a name="add-kubernetes-node"></a> 增加 Kubernetes 节点
 -----
 
-增加节点。如前文所述，在其他节点安装好 `kubeadm` 和 `docker-engine`，调整好 `cgroup driver`，执行 `kubeadm join` 命令
+增加节点。如前文所述，在其他节点安装好 `kubeadm` 和 `docker-engine`，调整好 `cgroup driver`，执行 `kubeadm join` 命令。
 
 ```
 kubeadm join --token <token> <master-ip>:<master-port> --discovery-token-ca-cert-hash sha256:<hash>
@@ -118,6 +121,22 @@ ifconfig flannel.1 down
 ip link delete flannel.1
 rm -rf /var/lib/cni/
 ```
+
+## <a name="change-nodeport-range"></a> 调整 NodePort 范围
+-----
+
+Kubernetes 允许以 NodePort 的方式，把容器内的端口映射到容器外，但默认情况下只允许映射到 30000-32767 端口，这显然无法满足需求。因此我们需要调整 NodePort 的范围。
+
+在 Kubernetes 主节点打开 `/etc/kubernetes/manifests/kube-apiserver.yaml`，在 `command` 章节添加 `--service-node-port-range=1-65530`。
+
+![Kubernetes 调整 NodePort 范围](/images/kubernetes-change-nodeport-range.png)
+
+保存后，重启 `kubelet` 服务。
+
+```
+systemctl restart kubelet
+```
+
 ## <a name="install-kubernetes-dashboard"></a> 安装 Kubernetes Dashboard
 -----
 
@@ -164,14 +183,17 @@ subjects:
 
 执行以下命令，创建 Dashboard RBAC。
 
-`kubectl create -f kubernetes-dashboard-admin.rbac.yaml`
-
+```
+kubectl create -f kubernetes-dashboard-admin.rbac.yaml
+```
 
 获取 Kubernetes Dashboard `token`。通过 `token` 打开 Dashboard 的 Web 界面对 Kubernetes Cluster 进行管理。
 
 第一步获取 `secret` 容器名称：
 
-`kubectl -n kube-system get secret | grep kubernetes-dashboard-admin`
+```
+kubectl -n kube-system get secret | grep kubernetes-dashboard-admin
+```
 
 ```
 kubernetes-dashboard-admin-token-pfss5   kubernetes.io/service-account-token   3         14s
@@ -179,7 +201,9 @@ kubernetes-dashboard-admin-token-pfss5   kubernetes.io/service-account-token   3
 
 第二步获取最终 `token`：
 
-`kubectl describe -n kube-system secret/kubernetes-dashboard-admin-token-pfss5`
+```
+kubectl describe -n kube-system secret/kubernetes-dashboard-admin-token-pfss5
+```
 
 ```
 Name:         kubernetes-dashboard-admin-token-pfss5
@@ -197,3 +221,75 @@ namespace:  11 bytes
 token:      eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJrdWJlcm5ldGVzL3NlcnZpY2VhY2NvdW50Iiwia3ViZXJuZXRlcy5pby9zZXJ2aWNlYWNjb3VudC9uYW1lc3BhY2UiOiJrdWJlLXN5c3RlbSIsImt1YmVybmV0ZXMuaW8vc2VydmljZWFjY291bnQvc2VjcmV0Lm5hbWUiOiJrdWJlcm5ldGVzLWRhc2hib2FyZC1hZG1pbi10b2tlbi1wZnNzNSIsImt1YmVybmV0ZXMuaW8vc2VydmljZWFjY291bnQvc2VydmljZS1hY2NvdW50Lm5hbWUiOiJrdWJlcm5ldGVzLWRhc2hib2FyZC1hZG1pbiIsImt1YmVybmV0ZXMuaW8vc2VydmljZWFjY291bnQvc2VydmljZS1hY2NvdW50LnVpZCI6IjEwMjkyNTBhLWFkNzYtMTFlNy05YTFkLTA4MDAyNzc4YjhhMSIsInN1YiI6InN5c3RlbTpzZXJ2aWNlYWNjb3VudDprdWJlLXN5c3RlbTprdWJlcm5ldGVzLWRhc2hib2FyZC1hZG1pbiJ9.Bs6h65aFCFkEKBO_h4muoIK3XdTcfik-pNM351VogBJD_pk5grM1PEWdsCXpR45r8zUOTpGM-h8kDwgOXwy2i8a5RjbUTzD3OQbPJXqa1wBk0ABkmqTuw-3PWMRg_Du8zuFEPdKDFQyWxiYhUi_v638G-R5RdZD_xeJAXmKyPkB3VsqWVegoIVTaNboYkw6cgvMa-4b7IjoN9T1fFlWCTZI8BFXbM8ICOoYMsOIJr3tVFf7d6oVNGYqaCk42QL_2TfB6xMKLYER9XDh753-_FDVE5ENtY5YagD3T_s44o0Ewara4P9C3hYRKdJNLxv7qDbwPl3bVFH3HXbsSxxF3TQ
 ```
 
+## <a name="install-kubernetes-ingress"></a> 安装 Kubernetes Ingress
+-----
+
+首先下载一份 Kubernetes Ingress 代码。
+
+```
+git clone https://github.com/kubernetes/ingress-nginx
+```
+
+进入 `deploy` 目录，修改 `with-rbac.yml` 文件，在 `serviceAccountName` 一项下添加 `hostNetwork: true`。否则 Ingress 不会开放监听端口。
+
+![Kubernetes Ingress 修改 hostNetwork 方式](/images/kubernetes-ingress-host-network.png)
+
+然后执行以下命令，部署 Kubernetes Ingress 服务。
+
+```
+kubectl apply -f namespace.yaml 
+kubectl apply -f default-backend.yaml 
+kubectl apply -f configmap.yaml 
+kubectl apply -f tcp-services-configmap.yaml 
+kubectl apply -f udp-services-configmap.yaml 
+kubectl apply -f rbac.yaml 
+kubectl apply -f with-rbac.yaml
+```
+
+稍等片刻，等待 `kubelet` 在后台下载对应的 Docker 镜像并完成自动部署。完成部署后，使用以下命令查看 Ingress Controller 部署在哪个节点。
+
+```
+kubectl get pods --all-namespaces -l app=ingress-nginx -o wide
+```
+
+查得结果如下，Ingress Controller 部署在 `ubuntu-184` 节点，把需要使用的域名指向 `192.168.1.184`。
+
+```
+NAMESPACE       NAME                                      READY     STATUS    RESTARTS   AGE       IP              NODE
+ingress-nginx   nginx-ingress-controller-746c799c-wl66w   1/1       Running   0          3d        192.168.1.184   ubuntu-184
+```
+
+## <a name="kubernetes-ingress-demo"></a> Kubernetes Ingress Demo
+-----
+
+以下是一个为 GitLab 部署 Kubernetes Ingress 的例子。
+
+GitLab 在 Kubernetes 上的部署，请参考 [sameersbn/docker-gitlab] (https://github.com/sammeersbn/docker-gitlab)。
+
+完成 GitLab 部署后，在 Kubernetes 主节点创建一个 `gitlab-ingress.yml` 文件。内容如下：
+
+```
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: gitlab
+  annotations:
+    nginx.ingress.kubernetes.io/rewrite-target: /
+spec:
+  rules:
+  - host: gitlab.dconline.com
+    http:
+      paths:
+      - path: /
+        backend:
+          serviceName: gitlab
+          servicePort: 80
+```
+
+执行以下命令，为 GitLab 创建 Kubernetes Ingress 前端。
+
+```
+kubectl apply -f gitlab-ingress.yml
+```
+
+把域名 `gitlab.dconline.com` 指向 Ingress Controller 所在节点的 IP 地址，然后尝试在浏览器输入域名访问 GitLab。若能够打开 GitLab，则表示 Kubernetes Ingress 部署成功。
